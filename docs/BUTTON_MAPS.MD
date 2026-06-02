@@ -13,7 +13,7 @@ assign button to standard features -- click, change dpi, media control etc..
       "value": "cycle_dpi"
 ```
 
-all available values are in `MouseButton` section in [libs/HidppConstants.py](../libs/HidppConstants.py)
+all available values are in `MouseButton` section in [libs/HidppConstants.py](../libs/HidppConstants.py#:~:text=MouseButton)
 
 
 
@@ -35,7 +35,16 @@ Press `F12`
       "value": "tab"
 ```
 
-bind modifier key(s) to mouse button
+`win + up` 
+
+```
+      "action": "key",
+      "modifier": "lgui",
+      "value": "up"
+```
+
+
+bind `ctrl + alt` modifier to mouse button. 
 
 ```
       "action": "key",
@@ -43,6 +52,7 @@ bind modifier key(s) to mouse button
       "value": ""
 ```
 
+all available key names are in `KeyCode` section in [libs/HidppConstants.py](../libs/HidppConstants.py#:~:text=KeyCode)
 
 
 ### Set `action` to `macro`. 

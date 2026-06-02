@@ -30,7 +30,7 @@ A Python script to manage Logitech's onboard memory profiles. For hid++ 2.0 mice
    omm.py -l
    ```
 
-4. Now edit `devices.ini` to add the mouse entry, with `pid` and `index`. For `index`, it's 0xFF for wired mouse, `0x0` for bluetooth. For wireless mice through the USB receiver, it would be in 1-6 but usually `1` . 
+4. Edit `devices.ini` to set the mouse with `pid` and `index`. For `index`, it's 0xFF for wired mouse, `0x0` for bluetooth. For wireless mice through the USB receiver, it would be in 1-6 but usually `1` . 
 
    ```
    [g502]
@@ -38,7 +38,7 @@ A Python script to manage Logitech's onboard memory profiles. For hid++ 2.0 mice
    index=0xff
    ```
    
-5. Now test run. Use the device name set earlier in `devices.ini`.
+5. Test run. Use the device name set earlier in `devices.ini`. `-n` is optional and `omm.py` will use first entry in `devices.ini` without it.
 
    ```
    omm.py -n g502 -p 1 --dump
