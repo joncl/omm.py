@@ -73,8 +73,9 @@ if __name__ == "__main__":
         omm.profile_enabled = True
     elif toggle_vis >= 0:
         omm.profile_visibility = toggle_vis == 1
-    if not omm.info_display():
-        early_exit = True
+    if not do_switch:
+        if not omm.info_display():
+            early_exit = True
     if early_exit:
         omm.close()
         exit()    
