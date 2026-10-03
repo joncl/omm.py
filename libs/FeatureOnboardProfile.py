@@ -147,7 +147,7 @@ class FeatureOnboardProfile:
         assert profile_index in range(1, self.num_profiles+1), f'wrong profile index! {profile_index}'        
         curr = self.current_profile
         if profile_index == curr:
-            print(f'alreay on profile {profile_index}')
+            print(f'Already on profile {profile_index}')
             return
         #check visibility
         if not self.profile_visibility:
@@ -245,7 +245,7 @@ class FeatureOnboardProfile:
         if self.profile_list[self.dest]['vis'] == visibility:
             print(f'profile {self.dest} is already {'visible' if val == 1 else 'hidden'}, no need to change')
             return
-        print(f"set profile {self.dest}: {'visible' if val == 1 else 'hidden'}")
+        print(f"Set profile {self.dest}: {'visible' if val == 1 else 'hidden'}")
         self.profile_list[self.dest]['vis'] = val
         data = self.read_memory_page(0, False)
         data[(self.dest-1)*4+2] = val
