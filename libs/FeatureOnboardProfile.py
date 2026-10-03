@@ -28,18 +28,25 @@ class FeatureOnboardProfile:
         self.num_gbuttons = self.num_buttons if gshift & 0x3 == 0x2 else 0
         self.extended_report_rate = self.dev.has_feature(Feature.extended_report_rate)
         self.profile_list = [{}]
-        data = self.read_memory_page(0)
-        for i in range(self.num_profiles):
-            rom, page, vis = struct.unpack('BBB', data[i*4:i*4+3])
-            if rom == 0xFF:
-                print(f'profile {i+1} is disabled, run "omm.py -p {i+1} --enable"')
-                page = -1
-            elif rom == 0x01:
-                print(f'profile {i+1} is on ROM')
-                page = -1
-            else:
-                assert rom == 0 and page == i + 1 , f'error memory layout at profile {i+1} {hex(page)}'
-            self.profile_list.append({'page':page, 'vis': vis == 1})
+        try:
+            data = self.read_memory_page(0)
+            for i in range(self.num_profiles):
+                rom, page, vis = struct.unpack('BBB', data[i*4:i*4+3])
+                if rom == 0xFF:
+                    print(f'profile {i+1} is disabled, run "omm.py -p {i+1} --enable"')
+                    page = -1
+                elif rom == 0x01:
+                    print(f'profile {i+1} is on ROM')
+                    page = -1
+                else:
+                    assert rom == 0 and page == i + 1 , f'error memory layout at profile {i+1} {hex(page)}'
+                self.profile_list.append({'page':page, 'vis': vis == 1})
+        except TypeError:
+            print('Warning: Wireless device refused full memory dump. Initializing dummy layout for basic CLI commands.')
+            # Fallback default configuration for G502 series mice
+            self.num_profiles = 5
+            self.profile_list = [{'page': -1, 'vis': True} for _ in range(self.num_profiles + 1)]
+
         self.page_layout = self.calc_page_layout()
 
     def close(self):
