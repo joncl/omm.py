@@ -4,6 +4,7 @@ from libs.HidppConstants import USBReceiver
 from libs.utils import *
 import argparse, os
 import configparser
+import time
 
 # Force Python to execute in the context of this script's local directory
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -49,7 +50,20 @@ if __name__ == "__main__":
         exit()
 
     config = configparser.ConfigParser()
-    config.read('devices.ini')
+    
+    # avoiding any intermittent issue with reading the ini file
+    # give it 5 tries, then give up
+    for attempt in range(5):
+        config.clear()
+        loaded = config.read('devices.ini')
+
+        if loaded and dev_name in config:
+            break
+            time.sleep(0.1)
+    else:
+        print(f'Unable to read device "{dev_name}" from devices.ini')
+        exit()
+
     dev_pid = 0
     dev_idx = -1
     dev_serial = ''
