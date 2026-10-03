@@ -3,7 +3,10 @@ from libs.FeatureOnboardProfile import FeatureOnboardProfile
 from libs.HidppConstants import USBReceiver
 from libs.utils import *
 import argparse, os
-import configparser 
+import configparser
+
+# Force Python to execute in the context of this script's local directory
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 if __name__ == "__main__":
     
